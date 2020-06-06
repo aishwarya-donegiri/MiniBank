@@ -49,4 +49,11 @@ router.route("/balance").get((req, res) => {
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
+router.route("/count").get((req, res) => {
+  User.find()
+    .count()
+    .then((count) => res.json(count))
+    .catch((err) => res.status(400).json("Error:" + err));
+});
+
 module.exports = router;
