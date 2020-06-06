@@ -28,4 +28,14 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
+router.route("/update/:accNumber").post((req, res) => {
+  User.findOne({ accountNumber: Number(req.params.accNumber) }).then((user) => {
+    user.balance = req.body.balance;
+    user
+      .save()
+      .then(() => res.json("User updated!"))
+      .catch((err) => res.status(400).json("Error:" + err));
+  });
+});
+
 module.exports = router;
