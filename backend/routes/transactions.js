@@ -27,4 +27,15 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
+router.route("/:accountNumber").get((req, res) => {
+  Transaction.find({
+    $or: [
+      { sender: req.params.accountNumber },
+      { receiver: req.params.accountNumber },
+    ],
+  })
+    .then((transactions) => res.json(transactions))
+    .catch((err) => res.status(400).json("Error:" + err));
+});
+
 module.exports = router;
