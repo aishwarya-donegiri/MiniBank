@@ -38,13 +38,21 @@ router.route("/update/:accNumber").post((req, res) => {
   });
 });
 
+router.route("/login").post((req, res) => {
+  User.findOne({ username: req.body.username })
+    .then((user) => {
+      res.json(user.password);
+    })
+    .catch((err) => res.json("error"));
+});
+
 router.route("/balance").get((req, res) => {
   User.aggregate([
     { $group: { _id: "", balance: { $sum: "$balance" } } },
     { $project: { totalDeposit: "$balance" } },
   ])
     .then((balance) => {
-      res.json(balance[0]);
+      res.json(balance[0].totalDeposit);
     })
     .catch((err) => res.status(400).json("Error:" + err));
 });
