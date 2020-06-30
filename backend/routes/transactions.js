@@ -8,14 +8,11 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const type = req.body.type;
-
   const sender = Number(req.body.sender);
   const receiver = Number(req.body.receiver);
   const amount = Number(req.body.amount);
 
   const newtransaction = new Transaction({
-    type,
     sender,
     receiver,
     amount,
@@ -23,8 +20,8 @@ router.route("/add").post((req, res) => {
 
   newtransaction
     .save()
-    .then(() => res.json("Transaction added!"))
-    .catch((err) => res.status(400).json("Error:" + err));
+    .then(() => res.json("success"))
+    .catch((err) => res.json("error"));
 });
 
 router.route("/:accountNumber").get((req, res) => {

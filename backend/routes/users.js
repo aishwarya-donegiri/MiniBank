@@ -33,9 +33,25 @@ router.route("/update/:accNumber").post((req, res) => {
     user.balance = req.body.balance;
     user
       .save()
-      .then(() => res.json("User updated!"))
-      .catch((err) => res.status(400).json("Error:" + err));
+      .then(() => res.json("success"))
+      .catch((err) => res.json("error"));
   });
+});
+
+router.route("/balance").post((req, res) => {
+  User.findOne({ accountNumber: req.body.accountNumber })
+    .then((user) => {
+      res.json(user.balance);
+    })
+    .catch((err) => res.json("error"));
+});
+
+router.route("/details").post((req, res) => {
+  User.findOne({ username: req.body.username })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => res.json("error"));
 });
 
 router.route("/login").post((req, res) => {

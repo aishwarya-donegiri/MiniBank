@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema(
   {
-    type: {
-      type: String,
-      enum: ["Credit", "Debit"],
-      required: true,
-    },
     sender: {
       type: Number,
       minlength: 16,

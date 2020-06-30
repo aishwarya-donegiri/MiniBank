@@ -24,4 +24,12 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
+router.route("/login").post((req, res) => {
+  Admin.findOne({ username: req.body.username })
+    .then((admin) => {
+      res.json(admin.password);
+    })
+    .catch((err) => res.json("error"));
+});
+
 module.exports = router;
