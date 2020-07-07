@@ -70,14 +70,14 @@ router.route("/balance").get((req, res) => {
     .then((balance) => {
       res.json(balance[0].totalDeposit);
     })
-    .catch((err) => res.status(400).json("Error:" + err));
+    .catch((err) => res.json("error"));
 });
 
 router.route("/count").get((req, res) => {
   User.find()
     .count()
     .then((count) => res.json(count))
-    .catch((err) => res.status(400).json("Error:" + err));
+    .catch((err) => res.json("error"));
 });
 
 module.exports = router;
